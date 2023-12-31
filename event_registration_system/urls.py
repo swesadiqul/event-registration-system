@@ -22,6 +22,7 @@ from django.conf.urls import handler404
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('event.urls')),
+    path('', include('accounts.urls')),
 
     # static and media
     re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
