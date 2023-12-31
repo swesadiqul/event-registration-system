@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+Event Registration System | Login
+{% endblock title %}
+
+
+{% block css %}
+    
+{% endblock css %}
+    
+
+{% block content %}
+<section id="login">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-5 shadow p-3">
+                <h3 class="text-center">Welcome to</h3>
+                <h6 class="mb-4 text-center">Event Registration System Entry Point</h6>
+                <form method="post" action="{% url 'accounts:login' %}">
+                    {% csrf_token %}
+                    <div class="form-group mb-3">
+                        <label for="id_username">Username</label>
+                        <input type="text" class="form-control" id="id_username" name="username" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="id_password">Password</label>
+                        <input type="password" class="form-control" id="id_password" name="password" required>
+                    </div>
+                    <div class="d-grid gap-2 col-6 mx-auto mb-3">
+                        <button class="btn btn-primary" type="submit">Login</button>
+                    </div>
+                    <p class="text-center">Don't have an account? <a href="{% url 'accounts:signup' %}" class="mx-1">Registration</a>Now.</p>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
+
+
+{% block js %}
+    
+{% endblock js %}
+    
+    
