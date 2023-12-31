@@ -16,8 +16,9 @@ Event Registration System | Registration
 <section id="register">
     <div class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-12 col-md-6 shadow p-3">
-                <h2 class="mb-4">Registration Form</h2>
+            <div class="col-12 col-md-5 shadow p-3">
+                <h5 class="text-center">Welcome to Our</h5>
+                <h3 class="mb-4 text-center">Event Registration System</h3>
                 <form method="post" action="{% url 'accounts:signup' %}" method="POST">
                     {% csrf_token %}
                     <div class="form-group mb-2">
