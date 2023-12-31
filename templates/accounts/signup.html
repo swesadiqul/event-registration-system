@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+Event Registration System | Registration
+{% endblock title %}
+
+
+{% block css %}
+    
+{% endblock css %}
+
+
+{% block content %}
+<section id="register">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-6 shadow p-3">
+                <h2 class="mb-4">Registration Form</h2>
+                <form method="post" action="{% url 'accounts:signup' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group mb-2">
+                        <label for="id_username">Username<span class="text-danger ms-1">*</span></label>
+                        <input type="text" class="form-control" id="id_username" name="username" required>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="id_password1">Password<span class="text-danger ms-1">*</span></label>
+                        <input type="password" class="form-control" id="id_password1" name="password1" required>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="id_password2">Confirm Password<span class="text-danger ms-1">*</span></label>
+                        <input type="password" class="form-control" id="id_password2" name="password2" required>
+                    </div>
+                    <div class="d-grid gap-2 col-6 mx-auto mb-3">
+                        <button class="btn btn-primary" type="submit">Register</button>
+                    </div>
+                    <p class="text-center">If you have already an account? <a href="javascript: void(0)" class="mx-1">Login</a>Here.</p>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
+
+
+{% block js %}
+    
+{% endblock js %}
+    
+    
+    
