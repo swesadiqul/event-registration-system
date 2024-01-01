@@ -11,40 +11,28 @@ Event Registration System
     <div class="container my-5">
         <div class="row">
             <div class="col-12">
-                <h1 class="py-5 rounded-1 text-center text-white bg-secondary">This is home page</h1>
-                <h6>Hello, {{ user.username }}</h6>
-                <section id="event_list">
-                    <h3 class="mb-3">Event List</h3>
-                    <div class="row">
-                        {% for event in events %}
-                            <div class="col-12 mb-4">
-                                <div class="card">
-                                   <div class="row justify-content-center align-items-center">
-                                    <div class="col-10">
-                                        <div class="card-body">
-                                            <h3 class="card-title">{{ event.title }}</h3>
-                                            <p class="card-text">{{ event.description|slice:":100" }}</p>
-                                            <p>Date: {{ event.date }} Time: {{ event.time }}</p>
-                                            <p>Location: {{ event.location_name }}</p>
-                                            <p>Available Slots: {{ event.available_slots }}</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-2">
-                                        <div class="d-flex justify-content-center">
-                                            {% if request.user in e %}
-                                                <a href="{% url 'events:unregister_for_event' event.id %}" class="btn btn-danger">Unregister</a>
-                                            {% else %}
-                                                <a href="{% url 'events:register_for_event' event.id %}" class="btn btn-primary">Register</a>
-                                            {% endif %}
-                                        </div>
-                                    </div>                                        
-                                   </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </section>
+                <h1 class="py-5 rounded-1 text-center text-white bg-secondary">This is home page <br> {{ user.username }}</h1>
             </div>
+            {% for event in events %}
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="row justify-content-center align-items-center">
+                        <div class="col-12 col-md-10 col-lg-10">
+                            <div class="card-body">
+                                <h3 class="card-title">{{ event.title }}</h3>
+                                <p class="card-text">{{ event.description }}</p>
+                                <p class="text-muted"><small>Date: {{ event.date }} Time: {{ event.time }} | Location: {{ event.location_name }} | Available Slots: {{ event.available_slots }}</small></p>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-2 col-lg-2">
+                            <div class="text-md-center m-3">  
+                                <a href="{% url 'events:register_for_event' event.id %}" class="btn btn-primary">Register</a>
+                            </div>
+                        </div>                                        
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
 </section>

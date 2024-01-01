@@ -1,8 +1,14 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Event, Registration
-from .forms import EventForm, RegistrationForm
+
+#rest framework
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
+from .serializers import *
 
 
 
@@ -53,4 +59,68 @@ def unregister_from_event(request, event_id):
 def registered_events(request):
     registrations = Registration.objects.filter(user=request.user)
     return render(request, 'events/registered_events.html', {'registrations': registrations})
+
+
+
+
+#api views here
+
+class EventList(APIView):
+    def get(self, request):
+        events = Event.objects.all()
+        serializer = EventSerializer(events, many=True)
+        return Response(serializer.data)
+
+
+class EventDetail(APIView):
+    def get(self, request, event_id):
+        try:
+            event = Event.objects.get(pk=event_id)
+        except Event.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        serializer = EventSerializer(event)
+        return Response(serializer.data)
+
+
+class UserEventRegistration(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, event_id):
+        user = request.user
+
+        try:
+            event = Event.objects.get(pk=event_id)
+        except Event.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        # Check if there are available slots
+        if event.available_slots <= 0:
+            return Response({'message': 'No available slots for registration.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Check if the user is already registered for the event
+        if Registration.objects.filter(user=user, event=event).exists():
+            return Response({'message': 'User is already registered for this event.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Create registration
+        registration = Registration(user=user, event=event)
+        registration.save()
+
+        # Decrement available slots
+        event.available_slots -= 1
+        event.save()
+
+        serializer = RegistrationSerializer(registration)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+class UserRegisteredEvents(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        user_events = Registration.objects.filter(user=user)
+        serializer = RegistrationSerializer(user_events, many=True)
+        return Response(serializer.data)
+
 

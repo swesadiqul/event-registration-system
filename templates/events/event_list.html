@@ -23,7 +23,7 @@
                     <div class="col-10">
                         <div class="card-body">
                             <h3 class="card-title">{{ event.title }}</h3>
-                            <p class="card-text">{{ event.description|slice:":100" }}</p>
+                            <p class="card-text">{{ event.description|truncatechars_html:100 }}</p>
                             <p>Date: {{ event.date }} Time: {{ event.time }}</p>
                             <p>Location: {{ event.location_name }}</p>
                             <p>Available Slots: {{ event.available_slots }}</p>
