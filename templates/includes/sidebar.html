@@ -6,7 +6,10 @@
       <a class="nav-link active" aria-current="page" href="{% url 'accounts:profile_update' %}">Profile</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">Events</a>
+      <a class="nav-link" href="{% url 'events:event_list' %}">Events</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'events:registered_events' %}">Registered Events</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="{% url 'accounts:logout' %}">Logout</a>

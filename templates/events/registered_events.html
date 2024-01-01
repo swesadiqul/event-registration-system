@@ -1,0 +1,48 @@
+{% extends "accounts/dashboard.html" %}
+
+
+
+{% block title %}
+    
+{% endblock title %}
+
+
+{% block css %}
+    
+{% endblock css %}
+
+
+{% block dashboard %}
+<section id="event_list">
+    <h3 class="mb-3">Registered Event List</h3>
+    <div class="row">
+        {% for registration in registrations %}
+            <div class="col-12 mb-4">
+                <div class="card">
+                   <div class="row justify-content-center align-items-center">
+                    <div class="col-10">
+                        <div class="card-body">
+                            <h3 class="card-title">{{ registration.event.title }}</h3>
+                            <p class="card-text">{{ registration.event.description|truncatechars_html:100 }}</p>
+                            <p>Date: {{ registration.event.date }} Time: {{ registration.event.time }}</p>
+                            <p>Location: {{ registration.event.location_name }}</p>
+                            <p>Available Slots: {{ registration.event.available_slots }}</p>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="d-flex justify-content-center">
+                            <a href="{% url 'events:unregister_from_event' registration.event.id %}" class="btn btn-danger">Unregister</a>
+                        </div>
+                    </div>                                        
+                   </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock dashboard %}
+
+
+{% block js %}
+    
+{% endblock js %}
