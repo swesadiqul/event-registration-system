@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 
 app_name = 'events'
@@ -14,6 +15,8 @@ urlpatterns = [
 
 
     #create api endpoint here
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/events/', views.EventList.as_view(), name='event-list'),
     path('api/events/<int:event_id>/', views.EventDetail.as_view(), name='event-detail'),
     path('api/user-events/<int:event_id>/', views.UserEventRegistration.as_view(), name='user-event-registration'),

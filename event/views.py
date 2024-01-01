@@ -8,6 +8,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from .serializers import *
 
 
@@ -85,6 +86,7 @@ class EventDetail(APIView):
 
 class UserEventRegistration(APIView):
     permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
 
     def post(self, request, event_id):
         user = request.user
@@ -110,12 +112,13 @@ class UserEventRegistration(APIView):
         event.available_slots -= 1
         event.save()
 
-        serializer = RegistrationSerializer(registration)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        # serializer = RegistrationSerializer(registration)
+        return Response({'message': 'Your registration for the event was successful.'}, status=status.HTTP_201_CREATED)
 
 
 class UserRegisteredEvents(APIView):
     permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
 
     def get(self, request):
         user = request.user
