@@ -108,6 +108,19 @@ A simple event registration system built with Django, allowing users to create e
 
 - Admin credentials can be created during the superuser creation process.
 
+
+## Live Project Link
+
+- https://universesoft.pythonanywhere.com
+
+
+## Admin Credentials
+
+- Admin credentials for accessing the admin interface
+- https://universesoft.pythonanywhere.com/admin/
+- username: admin
+- password: 1234
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
