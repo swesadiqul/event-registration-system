@@ -35,8 +35,17 @@ def page_not_found(request, exception):
 
 
 def event_list(request):
-    events = Event.objects.all()
-    return render(request, 'events/event_list.html', {'events': events})
+    query = request.GET.get('q')
+
+    if query:
+        events = Event.objects.filter(
+            Q(title__icontains=query) |
+            Q(description__icontains=query) |
+            Q(location_name__icontains=query)
+        )
+    else:
+        events = Event.objects.all()
+    return render(request, 'events/event_list.html', {'events': events, 'query': query})
 
 
 @login_required(login_url='accounts:login')

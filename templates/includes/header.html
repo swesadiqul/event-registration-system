@@ -14,11 +14,13 @@
                     <a class="nav-link" href="javascript: void(0)">Events</a>
                 </li>
             </ul>
-            <form class="d-flex" role="search" method="get" action="{% url 'events:home' %}">
-                <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search" value="{{ query }}">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-              </form>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end ms-5">
+            <div class="mb-lg-0 mb-2">
+                <form class="d-flex mx-lg-5" role="search" method="get" action="{% if request.user.is_authenticated %}{% url 'events:event_list' %}{% else %}{% url 'events:home' %}{% endif %}">
+                    <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search" value="{{ query }}">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 
                 {% if request.user.is_authenticated %}
                 
