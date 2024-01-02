@@ -14,7 +14,11 @@
                     <a class="nav-link" href="javascript: void(0)">Events</a>
                 </li>
             </ul>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <form class="d-flex" role="search" method="get" action="{% url 'events:home' %}">
+                <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search" value="{{ query }}">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+              </form>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end ms-5">
                 
                 {% if request.user.is_authenticated %}
                 

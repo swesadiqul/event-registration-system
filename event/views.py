@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Event, Registration
+from django.db.models import Q
 
 #rest framework
 from rest_framework.views import APIView
@@ -15,8 +16,18 @@ from .serializers import *
 
 # Create your views here.
 def index(request):
-    events = Event.objects.all()
-    return render(request, 'index.html', {"events": events})
+    query = request.GET.get('q')
+
+    if query:
+        events = Event.objects.filter(
+            Q(title__icontains=query) |
+            Q(description__icontains=query) |
+            Q(location_name__icontains=query)
+        )
+    else:
+        events = Event.objects.all()
+
+    return render(request, 'index.html', {'events': events, 'query': query})
 
 
 def page_not_found(request, exception):
