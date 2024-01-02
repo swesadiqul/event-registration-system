@@ -18,3 +18,9 @@ class RegistrationAdmin(admin.ModelAdmin):
 
 admin.site.register(Event, EventAdmin)
 admin.site.register(Registration, RegistrationAdmin)
+
+
+# Customize the site header, site title, and index title
+admin.site.site_header = 'Event Registration System Administration'
+admin.site.site_title = 'Event Registration System Admin'
+admin.site.index_title = 'Welcome to the Event Registration System Admin Panel'
